@@ -24,6 +24,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/pos', [PosController::class, 'index'])->name('pos.index');
     Route::post('/pos/checkout', [PosController::class, 'checkout'])->name('pos.checkout');
     Route::get('/pos/order/{order}/struk', [PosController::class, 'struk'])->name('pos.struk');
+    Route::post('/pos/order/{order}/print-direct', [PosController::class, 'printDirect'])->name('pos.print-direct');
 
     // Rute Khusus Admin
     Route::middleware('can:admin')->group(function () {
@@ -31,5 +32,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/admin/reports/download', [\App\Http\Controllers\ReportController::class, 'download'])->name('admin.reports.download');
         Route::resource('/admin/products', ProductController::class)->names('products');
         Route::resource('/admin/employees', EmployeeController::class)->names('employees');
+        Route::get('/admin/test-printer', [AdminController::class, 'testPrinterPage'])->name('admin.test-printer');
+        Route::post('/admin/test-printer/run', [AdminController::class, 'runTestPrint'])->name('admin.test-printer.run');
     });
 });

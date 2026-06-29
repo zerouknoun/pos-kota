@@ -55,6 +55,9 @@
         </div>
 
         <div class="flex items-center gap-4">
+            <a href="{{ route('admin.test-printer') }}" class="bg-slate-800 hover:bg-slate-700 text-slate-100 px-4 py-2 rounded-xl text-xs font-bold transition-all duration-200 border border-slate-700 hover:border-slate-600 hover:scale-[1.02]">
+                ⚙️ Test Printer
+            </a>
             <a href="{{ route('pos.index') }}" class="bg-theme hover:bg-theme-dark text-slate-950 px-4 py-2 rounded-xl text-xs font-bold transition-all duration-200 shadow-md shadow-theme/10 hover:shadow-theme/20 hover:scale-[1.02]">
                 🛒 Halaman POS Kasir
             </a>
