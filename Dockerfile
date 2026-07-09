@@ -35,10 +35,13 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
     && rm -rf /var/lib/apt/lists/*
 
 # Set Apache DocumentRoot ke /var/www/html/public
+# Fix "More than one MPM loaded": disable mpm_event, enable mpm_prefork (required for mod_php)
 RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|g' \
         /etc/apache2/sites-available/000-default.conf \
     && echo '<Directory /var/www/html/public>\n\tOptions Indexes FollowSymLinks\n\tAllowOverride All\n\tRequire all granted\n</Directory>' \
         >> /etc/apache2/apache2.conf \
+    && a2dismod mpm_event || true \
+    && a2enmod mpm_prefork \
     && a2enmod rewrite
 
 # Set working directory
