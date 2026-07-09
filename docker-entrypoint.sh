@@ -16,7 +16,7 @@ php artisan key:generate --force
 
 # Jalankan database migrations
 echo ">>> Running migrations..."
-php artisan migrate --force --seed 2>/dev/null || php artisan migrate --force
+php artisan migrate --force
 
 # Cache config, routes, views untuk performa production
 echo ">>> Caching config, routes, views..."
