@@ -37,8 +37,8 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
 # Set Apache DocumentRoot ke /var/www/html/public
 RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|g' \
         /etc/apache2/sites-available/000-default.conf \
-    && sed -i 's|<Directory /var/www/>|<Directory /var/www/html/public/>|g' \
-        /etc/apache2/apache2.conf \
+    && echo '<Directory /var/www/html/public>\n\tOptions Indexes FollowSymLinks\n\tAllowOverride All\n\tRequire all granted\n</Directory>' \
+        >> /etc/apache2/apache2.conf \
     && a2enmod rewrite
 
 # Set working directory
@@ -46,6 +46,9 @@ WORKDIR /var/www/html
 
 # Copy project files
 COPY . .
+
+# Set COMPOSER_ALLOW_SUPERUSER agar tidak ada warning saat build
+ENV COMPOSER_ALLOW_SUPERUSER=1
 
 # Install PHP dependencies (production only)
 RUN composer install \
