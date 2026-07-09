@@ -1,4 +1,4 @@
-FROM php:8.2-apache
+FROM php:8.4-apache
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     libzip-dev \
     libgd-dev \
+    libicu-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install \
         pdo_mysql \
@@ -20,6 +21,7 @@ RUN apt-get update && apt-get install -y \
         bcmath \
         gd \
         zip \
+        intl \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
